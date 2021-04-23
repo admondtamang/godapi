@@ -2,8 +2,10 @@ import { Button, Input, Select } from "antd";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import TitleContainer from "../../../components/TitleConatiner";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchRequestApi } from "../../../redux/request/requestSlice";
+import { PullRequestOutlined } from "@ant-design/icons";
+
 const { Option } = Select;
 
 export default function Request() {
@@ -38,7 +40,7 @@ export default function Request() {
     );
 
     return (
-        <TitleContainer title="Request">
+        <TitleContainer title="Request" icon={<PullRequestOutlined />}>
             <form className="container" onSubmit={onSubmit} style={{ display: "flex" }}>
                 <Input addonBefore={selectBefore} defaultValue="http://dummy.restapiexample.com/api/v1/employees" onChange={onChangeUrl} />
                 <Button onClick={onSubmit}>Send</Button>
