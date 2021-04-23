@@ -17,7 +17,7 @@ export default function Navigation({ children }) {
                     </SubMenu>
                 </Menu>
             </Sider>
-            <Content style={{ padding: "0 24px", minHeight: 280 }}>{children}</Content>
+            <Content style={{ padding: " 24px", minHeight: 280 }}>{children}</Content>
         </Layout>
     );
 }

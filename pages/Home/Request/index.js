@@ -5,6 +5,7 @@ import TitleContainer from "../../../components/TitleConatiner";
 import { useDispatch } from "react-redux";
 import { fetchRequestApi } from "../../../redux/request/requestSlice";
 import { PullRequestOutlined } from "@ant-design/icons";
+import Tabs from "./Tabs";
 
 const { Option } = Select;
 
@@ -45,6 +46,7 @@ export default function Request() {
                 <Input addonBefore={selectBefore} defaultValue="http://dummy.restapiexample.com/api/v1/employees" onChange={onChangeUrl} />
                 <Button onClick={onSubmit}>Send</Button>
             </form>
+            <Tabs />
         </TitleContainer>
     );
 }
