@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import "boxicons";
 const Container = styled.div`
     padding: 10px;
     display: flex;

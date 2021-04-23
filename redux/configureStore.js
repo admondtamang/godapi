@@ -2,6 +2,7 @@ import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/
 
 import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import requestSlice from "./request/requestSlice";
 import userSlice from "./user/userSlice";
 
 const persistConfig = {
@@ -12,6 +13,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     user: userSlice,
+    request: requestSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

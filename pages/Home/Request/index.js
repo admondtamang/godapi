@@ -1,16 +1,14 @@
 import { Button, Input, Select } from "antd";
-import axios from "axios";
 import { useState } from "react";
-import dynamic from "next/dynamic";
 import { toast } from "react-toastify";
 import TitleContainer from "../../../components/TitleConatiner";
-const DynamicReactJson = dynamic(import("react-json-view"), { ssr: false });
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRequestApi } from "../../../redux/request/requestSlice";
 const { Option } = Select;
 
 export default function Request() {
-    const [url, setUrl] = useState("");
-    const [result, setResult] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
+    const dispatch = useDispatch();
+    const [url, setUrl] = useState("http://dummy.restapiexample.com/api/v1/employees");
     const [method, setMethod] = useState("get");
 
     const onChangeUrl = (e) => {
@@ -22,25 +20,12 @@ export default function Request() {
     }
 
     const onSubmit = (value) => {
-        setIsLoading(true);
-
         if (!url) {
             toast.error("Enter url!");
             return null;
         }
 
-        axios({
-            method,
-            url,
-        })
-            .then((response) => {
-                console.log(response.data);
-                setResult(response);
-                setIsLoading(false);
-            })
-            .catch((e) => {
-                toast.error("Invaild request");
-            });
+        dispatch(fetchRequestApi({ method: method, url }));
     };
 
     const selectBefore = (
@@ -55,11 +40,9 @@ export default function Request() {
     return (
         <TitleContainer title="Request">
             <form className="container" onSubmit={onSubmit} style={{ display: "flex" }}>
-                <Input addonBefore={selectBefore} defaultValue="https://jsonplaceholder.typicode.com/todos/" onChange={onChangeUrl} />
+                <Input addonBefore={selectBefore} defaultValue="http://dummy.restapiexample.com/api/v1/employees" onChange={onChangeUrl} />
                 <Button onClick={onSubmit}>Send</Button>
             </form>
-
-            {isLoading ? "loading " : <DynamicReactJson src={result.data} />}
         </TitleContainer>
     );
 }
