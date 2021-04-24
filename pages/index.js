@@ -1,6 +1,6 @@
 import { ToastContainer } from "react-toastify";
 import Home from "./Home";
-import Navigation from "./Home/Navigation";
+import Navigation from "../components/Navigation";
 
 export default function index() {
     return (

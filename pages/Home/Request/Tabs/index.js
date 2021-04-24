@@ -2,12 +2,11 @@ import { Tabs } from "antd";
 import { AppleOutlined, AndroidOutlined } from "@ant-design/icons";
 import { UnControlled as CodeMirror } from "react-codemirror2";
 const { TabPane } = Tabs;
-// require("codemirror/mode/xml/xml");
-// require("codemirror/mode/javascript/javascript");
 
+require("codemirror/theme/material.css");
 export default function RequestTabs() {
     return (
-        <Tabs defaultActiveKey="2">
+        <Tabs defaultActiveKey="1" style={{ minHeight: "400px" }}>
             <TabPane
                 tab={
                     <span>
@@ -18,13 +17,11 @@ export default function RequestTabs() {
                 key="1"
             >
                 <CodeMirror
-                    value="<h1>I ♥ react-codemirror2</h1>"
+                    value="{}"
                     options={{
-                        mode: "xml",
-                        theme: "material",
+                        mode: "json",
                         lineNumbers: true,
                     }}
-                    onChange={(editor, data, value) => {}}
                 />
             </TabPane>
             <TabPane

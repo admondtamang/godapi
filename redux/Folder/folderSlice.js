@@ -1,23 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const history = createSlice({
-    name: "history",
+const folder = createSlice({
+    name: "folder",
     initialState: {
-        data: [],
+        data: {},
         status: null,
     },
 
     reducers: {
-        addHistory: (state, action) => {
+        addfolder: (state, action) => {
             state.status = "success";
             state.data = [...state.data, action.payload];
         },
-        removeHistory: (state, action) => {
+        removefolder: (state, action) => {
             state.status = "success";
             state.data = [];
         },
     },
 });
 
-export const { addHistory, removeHistory } = history.actions;
+export const { addfolder, removefolder } = folder.actions;
 export default history.reducer;

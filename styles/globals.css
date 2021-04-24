@@ -1,6 +1,7 @@
 @import "antd/dist/antd.css";
 @import "react-toastify/dist/ReactToastify.css";
 @import "boxicons";
+@import "codemirror/lib/codemirror.css";
 
 html,
 body {

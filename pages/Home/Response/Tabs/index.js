@@ -1,10 +1,8 @@
 import { Tabs } from "antd";
 import { AppleOutlined, AndroidOutlined } from "@ant-design/icons";
-import { UnControlled as CodeMirror } from "react-codemirror2";
 import Result from "./Result";
+import Headers from "./Headers";
 const { TabPane } = Tabs;
-// require("codemirror/mode/xml/xml");
-// require("codemirror/mode/javascript/javascript");
 
 export default function RequestTabs() {
     return (
@@ -29,7 +27,7 @@ export default function RequestTabs() {
                 }
                 key="2"
             >
-                Tab 2
+                <Headers />
             </TabPane>
         </Tabs>
     );

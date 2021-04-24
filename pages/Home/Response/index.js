@@ -10,14 +10,22 @@ import { useSelector } from "react-redux";
 export default function Response() {
     const request = useSelector((state) => state.request);
     const { status, data } = request;
-    console.log(data);
     return (
         <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
-            <Container>
-                <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
-                <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
-                <SecondaryButton prefix="Size" name={data.headers["content-length"].length + "Kb"} color="gray" background="lightgray" />
-            </Container>
+            {status === "loading" ? (
+                "loading"
+            ) : (
+                <Container>
+                    <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
+                    <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
+                    <SecondaryButton
+                        prefix="Size"
+                        name={data.headers["content-length"].length + "Kb"}
+                        color="gray"
+                        background="lightgray"
+                    />
+                </Container>
+            )}
 
             <RequestTabs />
         </TitleContainer>
