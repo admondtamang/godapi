@@ -1,28 +1,25 @@
 import React from "react";
-import dynamic from "next/dynamic";
-import { useSelector } from "react-redux";
 import TitleContainer from "../../../components/TitleConatiner";
-const DynamicReactJson = dynamic(import("react-json-view"), { ssr: false });
 
 import { CloudDownloadOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import SecondaryButton from "../../../components/SecondaryButton";
 import RequestTabs from "./Tabs";
+import { useSelector } from "react-redux";
 
 export default function Response() {
     const request = useSelector((state) => state.request);
-
     const { status, data } = request;
+    console.log(data);
     return (
         <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
             <Container>
-                <SecondaryButton name="Status 200 OK" color="green" background="lightgreen" />
-                <SecondaryButton name="Time 2.5 s" color="gray" background="lightgray" />
-                <SecondaryButton name="Size 5.2 Kb" color="gray" background="lightgray" />
+                <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
+                <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
+                <SecondaryButton prefix="Size" name={data.headers["content-length"].length + "Kb"} color="gray" background="lightgray" />
             </Container>
 
             <RequestTabs />
-            {status === "loading" ? "loading " : <DynamicReactJson src={data.data} />}
         </TitleContainer>
     );
 }

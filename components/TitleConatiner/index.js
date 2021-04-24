@@ -16,9 +16,9 @@ const Heading = styled.div`
     gap: 0.5em;
 `;
 
-export default function TitleContainer({ title, icon, children }) {
+export default function TitleContainer({ title, icon, children, ...rest }) {
     return (
-        <Container>
+        <Container {...rest}>
             <Heading>
                 {icon}
                 <span>{title}</span>
