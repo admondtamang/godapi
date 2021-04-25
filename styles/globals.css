@@ -27,7 +27,7 @@ a {
     background-color: #fafafa;
 }
 .ant-input {
-    border: none;
+    /* border: none; */
 }
 .ant-btn {
     color: darkslategray;

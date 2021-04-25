@@ -21,7 +21,7 @@ export default function TitleContainer({ title, icon, children, ...rest }) {
         <Container {...rest}>
             <Heading>
                 {icon}
-                <span>{title}</span>
+                <b>{title}</b>
             </Heading>
             {children}
         </Container>

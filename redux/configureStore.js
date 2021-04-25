@@ -1,9 +1,10 @@
-import { configureStore, combineReducers, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { configureStore, combineReducers, getDefaultMiddleware, createStore } from "@reduxjs/toolkit";
 
-import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import requestSlice from "./request/requestSlice";
 import userSlice from "./user/userSlice";
+
+let store;
 
 const persistConfig = {
     key: "godApi",
@@ -16,16 +17,27 @@ const rootReducer = combineReducers({
     request: requestSlice,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+const isClient = typeof window !== "undefined";
+if (isClient) {
+    const { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } = require("redux-persist");
+    const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-const store = configureStore({
-    reducer: persistedReducer,
-    middleware: getDefaultMiddleware({
-        serializableCheck: {
-            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-        },
-    }),
-    devTools: true,
-});
+    store = configureStore({
+        reducer: persistedReducer,
+        middleware: getDefaultMiddleware({
+            serializableCheck: {
+                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            },
+        }),
+        devTools: true,
+    });
+} else {
+    console.log("no ssr");
+    store = configureStore({
+        reducer: rootReducer,
+        middleware: getDefaultMiddleware(),
+        devTools: true,
+    });
+}
 
 export default store;
