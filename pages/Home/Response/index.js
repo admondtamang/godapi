@@ -20,7 +20,7 @@ export default function Response() {
                     <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
                     <SecondaryButton
                         prefix="Size"
-                        name={data.headers["content-length"].length + "Kb"}
+                        name={data?.headers["content-length"]?.length + "Kb"}
                         color="gray"
                         background="lightgray"
                     />
