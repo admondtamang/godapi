@@ -28,6 +28,7 @@ a {
 }
 .ant-input {
     /* border: none; */
+    /* border-radius: 10px; */
 }
 .ant-btn {
     color: darkslategray;

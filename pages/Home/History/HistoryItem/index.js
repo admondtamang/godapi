@@ -16,6 +16,10 @@ export default function HistoryItem({ url, date }) {
 const Container = styled.div`
     display: flex;
     gap: 1em;
+    /* padding: 5px; */
+    &:hover {
+        background: grey;
+    }
 `;
 
 const Detail = styled.div`

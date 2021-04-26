@@ -1,10 +1,20 @@
 import { Input, Tabs } from "antd";
 import { AppleOutlined, AndroidOutlined } from "@ant-design/icons";
-import { UnControlled as CodeMirror } from "react-codemirror2";
 import { useState } from "react";
+
+import dynamic from "next/dynamic";
 const { TabPane } = Tabs;
+// const OtherComponent = React.lazy(() => import("./OtherComponent"));
 
 require("codemirror/theme/material.css");
+
+const Json = dynamic(() => import("./Json"), {
+    loading: () => <p>Loading...</p>,
+});
+const Auth = dynamic(() => import("./Auth"), {
+    loading: () => <p>Loading...</p>,
+});
+
 export default function RequestTabs() {
     const [url, setUrl] = useState("http://dummy.restapiexample.com/api/v1/employees");
     const onChangeUrl = (e) => {
@@ -21,24 +31,18 @@ export default function RequestTabs() {
                 }
                 key="1"
             >
-                <CodeMirror
-                    value="{}"
-                    options={{
-                        mode: "json",
-                        lineNumbers: true,
-                    }}
-                />
+                <Json />
             </TabPane>
             <TabPane
                 tab={
                     <span>
                         <AndroidOutlined />
-                        Token
+                        Auth
                     </span>
                 }
                 key="2"
             >
-                <Input placeholder="Token" onChange={onChangeUrl} />
+                <Auth />
             </TabPane>
             <TabPane
                 tab={

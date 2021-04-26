@@ -10,6 +10,9 @@ import { useSelector } from "react-redux";
 export default function Response() {
     const request = useSelector((state) => state.request);
     const { status, data } = request;
+    if (status == undefined) {
+        return "Make a request";
+    }
     return (
         <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
             {status === "loading" ? (
@@ -21,6 +24,7 @@ export default function Response() {
                     <SecondaryButton
                         prefix="Size"
                         name={data?.headers["content-length"]?.length + "Kb"}
+                        // name={"Kb"}
                         color="gray"
                         background="lightgray"
                     />
