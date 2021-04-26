@@ -16,10 +16,6 @@ const Auth = dynamic(() => import("./Auth"), {
 });
 
 export default function RequestTabs() {
-    const [url, setUrl] = useState("http://dummy.restapiexample.com/api/v1/employees");
-    const onChangeUrl = (e) => {
-        setUrl(e.target.value);
-    };
     return (
         <Tabs defaultActiveKey="1" style={{ minHeight: "400px" }}>
             <TabPane
@@ -43,18 +39,6 @@ export default function RequestTabs() {
                 key="2"
             >
                 <Auth />
-            </TabPane>
-            <TabPane
-                tab={
-                    <span>
-                        <AndroidOutlined />
-                        Basic Auth
-                    </span>
-                }
-                key="3"
-            >
-                <Input placeholder="User Name" onChange={onChangeUrl} />
-                <Input placeholder="Password" onChange={onChangeUrl} />
             </TabPane>
         </Tabs>
     );

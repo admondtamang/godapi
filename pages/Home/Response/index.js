@@ -6,30 +6,42 @@ import styled from "styled-components";
 import SecondaryButton from "../../../components/SecondaryButton";
 import RequestTabs from "./Tabs";
 import { useSelector } from "react-redux";
+import Loading from "../../../components/Loading";
+import LottieFile from "../../../components/LottieFile";
+import Dog from "../../../assets/lottie/4888-dog-icon.json";
 
 export default function Response() {
     const request = useSelector((state) => state.request);
     const { status, data } = request;
     if (status == undefined) {
-        return "Make a request";
+        return (
+            <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
+                <LottieFile
+                    animationData={Dog}
+                    width="600px"
+                    height="300px"
+                    message={["I Love Reqest. ", <span style={{ color: "orange" }}> Fetch Me!</span>]}
+                />
+                <b style={{ textAlign: "center" }}></b>
+            </TitleContainer>
+        );
+    }
+    if (status === "loading") {
+        return <Loading />;
     }
     return (
         <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
-            {status === "loading" ? (
-                "loading"
-            ) : (
-                <Container>
-                    <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
-                    <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
-                    <SecondaryButton
-                        prefix="Size"
-                        name={data?.headers["content-length"]?.length + "Kb"}
-                        // name={"Kb"}
-                        color="gray"
-                        background="lightgray"
-                    />
-                </Container>
-            )}
+            <Container>
+                <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
+                <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
+                <SecondaryButton
+                    prefix="Size"
+                    name={data?.headers["content-length"]?.length + "Kb"}
+                    // name={"Kb"}
+                    color="gray"
+                    background="lightgray"
+                />
+            </Container>
 
             <RequestTabs />
         </TitleContainer>
