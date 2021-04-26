@@ -27,7 +27,11 @@ export default function Response() {
         );
     }
     if (status === "loading") {
-        return <Loading />;
+        return (
+            <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
+                <Loading message="Loading..." />
+            </TitleContainer>
+        );
     }
     return (
         <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>

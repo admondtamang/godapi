@@ -27,13 +27,13 @@ export default function Auth() {
     return (
         <Flex p={1} gap={2}>
             <Box>
-                <Radio.Group value={auth} onChange={changeAuth} style={{ display: "flex", flexDirection: "column", gap: "0.3em" }}>
+                <Radio.Group value={auth} onChange={changeAuth} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                     {Object.entries(radioAuth).map(([key, value], i) => (
                         <Radio.Button value={key}>{value}</Radio.Button>
                     ))}
                 </Radio.Group>
             </Box>
-            <Box flex="1" m={[0, 2]}>
+            <Box flex="1" ml={2}>
                 {renderAuth(auth)}
             </Box>
         </Flex>
