@@ -1,15 +1,17 @@
 import { Box } from "@chakra-ui/layout";
 import { Flex } from "@chakra-ui/layout";
-import { Input, Radio, Space, Tabs } from "antd";
-import React, { useState } from "react";
+import { Radio } from "antd";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { handleAuth } from "../../../../../redux/request/requestSlice";
 import BasicAuth from "./BasicAuth";
 import Token from "./Token";
-const { TabPane } = Tabs;
 
 export default function Auth() {
-    const [auth, setAuth] = useState("token");
+    const dispatch = useDispatch();
+    const auth = useSelector((state) => state.request.request.auth.selected);
     const changeAuth = (e) => {
-        setAuth(e.target.value);
+        dispatch(handleAuth(e.target.value));
     };
 
     const radioAuth = { token: "token", basic_auth: "basic auth" };

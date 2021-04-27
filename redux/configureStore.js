@@ -10,6 +10,7 @@ const persistConfig = {
     key: "godApi",
     version: 1,
     storage,
+    blacklist: ["request"],
 };
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
 });
 
 const isClient = typeof window !== "undefined";
+
 if (isClient) {
     const { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } = require("redux-persist");
     const persistedReducer = persistReducer(persistConfig, rootReducer);

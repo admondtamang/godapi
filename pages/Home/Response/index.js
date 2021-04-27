@@ -13,6 +13,7 @@ import Dog from "../../../assets/lottie/4888-dog-icon.json";
 export default function Response() {
     const request = useSelector((state) => state.request);
     const { status, data } = request;
+
     if (status == undefined) {
         return (
             <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
@@ -26,28 +27,29 @@ export default function Response() {
             </TitleContainer>
         );
     }
-    if (status === "loading") {
-        return (
-            <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
-                <Loading message="Loading..." />
-            </TitleContainer>
-        );
-    }
+    const LoadingComponent = <Loading message="Loading..." />;
+
     return (
         <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
-            <Container>
-                <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
-                <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
-                <SecondaryButton
-                    prefix="Size"
-                    name={data?.headers["content-length"]?.length + "Kb"}
-                    // name={"Kb"}
-                    color="gray"
-                    background="lightgray"
-                />
-            </Container>
+            {status === "loading" ? (
+                LoadingComponent
+            ) : (
+                <>
+                    <Container>
+                        <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
+                        <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
+                        <SecondaryButton
+                            prefix="Size"
+                            name={data?.headers["content-length"]?.length + "Kb"}
+                            // name={"Kb"}
+                            color="gray"
+                            background="lightgray"
+                        />
+                    </Container>
 
-            <RequestTabs />
+                    <RequestTabs />
+                </>
+            )}
         </TitleContainer>
     );
 }
