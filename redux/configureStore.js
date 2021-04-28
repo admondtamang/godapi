@@ -1,8 +1,10 @@
 import { configureStore, combineReducers, getDefaultMiddleware, createStore } from "@reduxjs/toolkit";
 
 import storage from "redux-persist/lib/storage";
+import historySlice from "./history/historySlice";
 import requestSlice from "./request/requestSlice";
 import userSlice from "./user/userSlice";
+import folderSlice from "./Folder/folderSlice";
 
 let store;
 
@@ -16,6 +18,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     user: userSlice,
     request: requestSlice,
+    history: historySlice,
+    folders: folderSlice,
 });
 
 const isClient = typeof window !== "undefined";

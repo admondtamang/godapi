@@ -20,4 +20,4 @@ const folder = createSlice({
 });
 
 export const { addfolder, removefolder } = folder.actions;
-export default history.reducer;
+export default folder.reducer;

@@ -1,39 +1,33 @@
 import { Button, Input, Select } from "antd";
-import { useRef, useState } from "react";
-import { toast } from "react-toastify";
+import { useRef } from "react";
 import TitleContainer from "../../../components/TitleConatiner";
-import { useDispatch } from "react-redux";
-import { fetchRequestApi } from "../../../redux/request/requestSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRequestApi, handleChangeRequestProps, handleMethod } from "../../../redux/request/requestSlice";
 import { PullRequestOutlined } from "@ant-design/icons";
 import Tabs from "./Tabs";
 import { useHotkeys } from "react-hotkeys-hook";
+import Form from "antd/lib/form/Form";
 
 const { Option } = Select;
 
 export default function Request() {
     const dispatch = useDispatch();
+    const { url, method } = useSelector((state) => state.request.request);
 
     const urlRef = useRef();
-    const [url, setUrl] = useState("http://dummy.restapiexample.com/api/v1/employees");
-    const [method, setMethod] = useState("get");
 
     useHotkeys("/", () => urlRef.current.focus());
 
     const onChangeUrl = (e) => {
-        setUrl(e.target.value);
+        dispatch(handleChangeRequestProps(e));
     };
 
     function handleChange(value) {
-        setMethod(value);
+        dispatch(handleMethod(value));
     }
 
-    const onSubmit = (value) => {
-        if (!url) {
-            toast.error("Enter url!");
-            return null;
-        }
-
-        dispatch(fetchRequestApi({ method: method, url }));
+    const onSubmit = () => {
+        dispatch(fetchRequestApi());
     };
 
     const selectBefore = (
@@ -47,17 +41,18 @@ export default function Request() {
 
     return (
         <TitleContainer title="Request" icon={<PullRequestOutlined />}>
-            <form className="container" onSubmit={onSubmit} style={{ display: "flex" }}>
+            <Form onFinish={onSubmit} style={{ display: "flex" }}>
                 <Input
                     ref={urlRef}
                     addonBefore={selectBefore}
+                    name="url"
                     defaultValue="http://dummy.restapiexample.com/api/v1/employees"
                     onChange={onChangeUrl}
                 />
                 <Button onClick={onSubmit} type="submit">
                     Send
                 </Button>
-            </form>
+            </Form>
             <Tabs />
         </TitleContainer>
     );

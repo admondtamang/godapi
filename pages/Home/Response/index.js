@@ -38,13 +38,13 @@ export default function Response() {
                     <Container>
                         <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
                         <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
-                        <SecondaryButton
+                        {/* <SecondaryButton
                             prefix="Size"
                             name={data?.headers["content-length"]?.length + "Kb"}
                             // name={"Kb"}
                             color="gray"
                             background="lightgray"
-                        />
+                        /> */}
                     </Container>
 
                     <RequestTabs />

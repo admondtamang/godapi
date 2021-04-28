@@ -1,13 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { addHistory } from "../history/historySlice";
 
 /**
  * Request
  */
-export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", async ({ method, url }, { getState }) => {
+export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", async (_, { getState, dispatch }) => {
+    const state = getState();
     const {
-        request: { json, token, basic_token },
-    } = getState();
+        request: {
+            request: { json, token, basic_token, url, method },
+        },
+    } = state;
 
     const req = await axios(
         {
@@ -16,7 +20,7 @@ export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", asyn
         },
         { json }
     );
-
+    // dispatch(addHistory(state.request.request));
     return req;
 });
 
@@ -25,45 +29,43 @@ const request = createSlice({
     initialState: {
         data: {},
         request: {
-            url: null,
-            method: null,
+            url: "http://dummy.restapiexample.com/api/v1/employees",
+            method: "get",
             json: null,
             auth: {
                 selected: "token",
                 token: null,
-                basic_token: {
-                    username: null,
-                    password: null,
-                },
+                basic_token: {},
             },
         },
         status: null,
     },
     reducers: {
+        handleMethod(state, { payload }) {
+            return { ...state, request: { ...state.request, method: payload } };
+        },
+        handleChangeRequestProps(state, { payload }) {
+            return { ...state, request: { ...state.request, [payload.target.name]: payload.target.value } };
+        },
         handleJson(state, { payload }) {
             return { ...state, request: { ...state.request, json: payload } };
         },
         handleAuth(state, { payload }) {
+            // select which auth to use-- token or basic auth
             return { ...state, request: { ...state.request, auth: { ...state.request.auth, selected: payload } } };
         },
         handleToken(state, { payload }) {
             return { ...state, request: { ...state.request, auth: { ...state.request.auth, token: payload } } };
         },
-        handleBasicTokenUserName(state, { payload }) {
+        handleBasicAuth(state, { payload }) {
             return {
                 ...state,
                 request: {
                     ...state.request,
-                    auth: { ...state.request.auth, basic_token: { ...state.request.auth.basic_token, username: payload } },
-                },
-            };
-        },
-        handleBasicTokenPassword(state, { payload }) {
-            return {
-                ...state,
-                request: {
-                    ...state.request,
-                    auth: { ...state.request.auth, basic_token: { ...state.request.auth.basic_token, password: payload } },
+                    auth: {
+                        ...state.request.auth,
+                        basic_token: { ...state.request.auth.basic_token, [payload.target.name]: payload.target.value },
+                    },
                 },
             };
         },
@@ -82,5 +84,5 @@ const request = createSlice({
     },
 });
 
-export const { handleJson, handleAuth, handleToken, handleBasicTokenUserName, handleBasicTokenPassword } = request.actions;
+export const { handleJson, handleMethod, handleAuth, handleToken, handleBasicAuth, handleChangeRequestProps } = request.actions;
 export default request.reducer;

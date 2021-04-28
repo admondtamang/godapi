@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const history = createSlice({
-    name: "history",
+    name: "histories",
     initialState: {
         data: [],
         status: null,
@@ -11,13 +11,14 @@ const history = createSlice({
         addHistory: (state, action) => {
             state.status = "success";
             state.data = [...state.data, action.payload];
+            // state.data = state.data.shift();
         },
-        removeHistory: (state, action) => {
+        clearHistory: (state, action) => {
             state.status = "success";
             state.data = [];
         },
     },
 });
 
-export const { addHistory, removeHistory } = history.actions;
+export const { addHistory, clearHistory } = history.actions;
 export default history.reducer;
