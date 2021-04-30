@@ -5,7 +5,7 @@ import { addHistory } from "../history/historySlice";
 /**
  * Request
  */
-export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", async (_, { getState, dispatch }) => {
+export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", async (_, { getState, dispatch, rejectWithValue }) => {
     const state = getState();
     const {
         request: {
@@ -13,15 +13,19 @@ export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", asyn
         },
     } = state;
 
-    const req = await axios(
-        {
-            method,
-            url,
-        },
-        { json }
-    );
-    // dispatch(addHistory(state.request.request));
-    return req;
+    try {
+        const res = await axios(
+            {
+                method,
+                url,
+            },
+            { json }
+        );
+        dispatch(addHistory(res));
+        return res;
+    } catch (err) {
+        return rejectWithValue(err.response);
+    }
 });
 
 const request = createSlice({
@@ -29,7 +33,7 @@ const request = createSlice({
     initialState: {
         data: {},
         request: {
-            url: "http://dummy.restapiexample.com/api/v1/employees",
+            url: "https://jsonplaceholder.typicode.com/todos/1",
             method: "get",
             json: null,
             auth: {

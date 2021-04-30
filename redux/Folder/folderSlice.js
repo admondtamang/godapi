@@ -10,7 +10,7 @@ const folder = createSlice({
     reducers: {
         addfolder: (state, action) => {
             state.status = "success";
-            state.data = [...state.data, action.payload];
+            state.data = { ...state.data, ...action.payload };
         },
         removefolder: (state, action) => {
             state.status = "success";

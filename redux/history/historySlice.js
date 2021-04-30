@@ -10,7 +10,8 @@ const history = createSlice({
     reducers: {
         addHistory: (state, action) => {
             state.status = "success";
-            state.data = [...state.data, action.payload];
+            state.data.push(action.payload);
+            // state.data = [...state.data, action.payload];
             // state.data = state.data.shift();
         },
         clearHistory: (state, action) => {

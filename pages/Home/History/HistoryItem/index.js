@@ -1,13 +1,18 @@
 import SecondaryButton from "../../../../components/SecondaryButton";
 import styled from "styled-components";
 
-export default function HistoryItem({ url, date }) {
+export default function HistoryItem({ history }) {
+    console.log(history);
+    const {
+        config: { url, method },
+        status,
+    } = history;
     return (
         <Container>
-            <SecondaryButton prefix="Status" name="200 OK" color="green" background="lightgreen" square />
+            <SecondaryButton prefix="Status" name={status} color="green" background="lightgreen" square />
             <Detail>
                 <b>{url}</b>
-                <b style={{ color: "grey" }}>{date}</b>
+                <b style={{ color: "grey" }}>9:00 AM</b>
             </Detail>
         </Container>
     );

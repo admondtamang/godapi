@@ -7,6 +7,8 @@ import { PullRequestOutlined } from "@ant-design/icons";
 import Tabs from "./Tabs";
 import { useHotkeys } from "react-hotkeys-hook";
 import Form from "antd/lib/form/Form";
+import { unwrapResult } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const { Option } = Select;
 
@@ -27,7 +29,12 @@ export default function Request() {
     }
 
     const onSubmit = () => {
-        dispatch(fetchRequestApi());
+        dispatch(fetchRequestApi())
+            .then(unwrapResult)
+            .catch((err) => {
+                console.error("hello", err);
+                toast.error(err.data.message);
+            });
     };
 
     const selectBefore = (

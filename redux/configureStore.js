@@ -31,9 +31,10 @@ if (isClient) {
     store = configureStore({
         reducer: persistedReducer,
         middleware: getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
+            // serializableCheck: {
+            //     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            // },
+            serializableCheck: false,
         }),
         devTools: true,
     });
@@ -41,7 +42,9 @@ if (isClient) {
     console.log("no ssr");
     store = configureStore({
         reducer: rootReducer,
-        middleware: getDefaultMiddleware(),
+        middleware: getDefaultMiddleware({
+            serializableCheck: false,
+        }),
         devTools: true,
     });
 }
