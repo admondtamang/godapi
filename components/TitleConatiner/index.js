@@ -4,10 +4,10 @@ const Container = styled.div`
     padding: 10px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
     background-color: #ffffff;
     gap: 1rem;
     border-radius: 10px;
+    min-height: 32rem;
 `;
 
 const Heading = styled.div`

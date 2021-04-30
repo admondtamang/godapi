@@ -1,7 +1,5 @@
 import { Layout, Menu } from "antd";
 import { FolderOutlined, FileOutlined } from "@ant-design/icons";
-import { Stack } from "@chakra-ui/layout";
-import { Button } from "@chakra-ui/button";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import "./navigation.module.css";
 import AddFolder from "./AddFolder";
@@ -10,44 +8,6 @@ import { useSelector } from "react-redux";
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
 
-// const navs = {
-//     dms: [
-//         {
-//             name: "signin",
-//             method: "get",
-//             request: "http://localhost.com",
-//         },
-//         {
-//             name: "ramesh",
-//             method: "get",
-//             request: "http://localhost.com",
-//         },
-//         {
-//             name: "",
-//             method: "get",
-//             request: "http://localhost.com",
-//         },
-//     ],
-
-//     bpa: [
-//         {
-//             name: "herp",
-//             method: "get",
-//             request: "http://localhost.com",
-//         },
-//         {
-//             name: "make",
-//             method: "get",
-//             request: "http://localhost.com",
-//         },
-//         {
-//             name: "",
-//             method: "get",
-//             request: "http://localhost.com",
-//         },
-//     ],
-//     dmt: [],
-// };
 function handleClick(e, data) {
     console.log(data.foo);
 }
