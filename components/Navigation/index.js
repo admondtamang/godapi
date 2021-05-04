@@ -19,9 +19,10 @@ export default function Navigation({ children }) {
             <>
                 {/* <ContextMenuTrigger id="same_unique_identifier"> */}
                 <SubMenu key={i} icon={<FolderOutlined />} title={key}>
+                    {/* {console.log(value)} */}
                     {value?.map((nav, i) => (
                         <Menu.Item key={i} icon={<FileOutlined />}>
-                            {nav.name || nav.request}
+                            {nav.url}
                         </Menu.Item>
                     ))}
                     <Menu.Item key={i} icon={<FileOutlined />}>

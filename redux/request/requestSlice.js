@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { addHistory } from "../history/historySlice";
-
+import { addRequest } from "../Folder/folderSlice";
 /**
  * Request
  */
@@ -26,6 +26,12 @@ export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", asyn
     } catch (err) {
         return rejectWithValue(err.response);
     }
+});
+
+export const fetchToFolder = createAsyncThunk("user/fetchToFolder", async (selectedOption, { getState, dispatch, rejectWithValue }) => {
+    const state = getState();
+    console.log(state, selectedOption);
+    return await dispatch(addRequest({ folder: "ramesh", data: state.request.request }));
 });
 
 const request = createSlice({
@@ -84,6 +90,10 @@ const request = createSlice({
         },
         [fetchRequestApi.rejected]: (state, action) => {
             state.status = "failed";
+        },
+        [fetchToFolder.fulfilled]: (state, action) => {
+            state.status = "success";
+            console.log(action);
         },
     },
 });

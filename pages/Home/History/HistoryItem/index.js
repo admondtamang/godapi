@@ -21,9 +21,10 @@ export default function HistoryItem({ history }) {
 const Container = styled.div`
     display: flex;
     gap: 1em;
+    cursor: pointer;
     /* padding: 5px; */
     &:hover {
-        background: grey;
+        opacity: 0.8;
     }
 `;
 

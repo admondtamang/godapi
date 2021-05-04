@@ -9,6 +9,8 @@ import { useHotkeys } from "react-hotkeys-hook";
 import Form from "antd/lib/form/Form";
 import { unwrapResult } from "@reduxjs/toolkit";
 import { toast } from "react-toastify";
+import SecondaryButton from "../../../components/SecondaryButton";
+import AddFolder from "./AddFolder";
 
 const { Option } = Select;
 
@@ -27,6 +29,7 @@ export default function Request() {
     function handleChange(value) {
         dispatch(handleMethod(value));
     }
+    function handleSaveRequest() {}
 
     const onSubmit = () => {
         dispatch(fetchRequestApi())
@@ -38,7 +41,7 @@ export default function Request() {
     };
 
     const selectBefore = (
-        <Select defaultValue="get" className="select-before" onChange={handleChange}>
+        <Select defaultValue={method} className="select-before" onChange={handleChange}>
             <Option value="get">GET</Option>
             <Option value="post">POST</Option>
             <Option value="put">PUT</Option>
@@ -49,18 +52,14 @@ export default function Request() {
     return (
         <TitleContainer title="Request" icon={<PullRequestOutlined />}>
             <Form onFinish={onSubmit} style={{ display: "flex" }}>
-                <Input
-                    ref={urlRef}
-                    addonBefore={selectBefore}
-                    name="url"
-                    defaultValue="http://dummy.restapiexample.com/api/v1/employees"
-                    onChange={onChangeUrl}
-                />
+                <Input ref={urlRef} addonBefore={selectBefore} name="url" defaultValue={url} onChange={onChangeUrl} />
                 <Button onClick={onSubmit} type="submit">
                     Send
                 </Button>
             </Form>
             <Tabs />
+            <AddFolder />
+            {/* <SecondaryButton onClick={handleSaveRequest} name="Save Request" background="lightgreen" color="green" button /> */}
         </TitleContainer>
     );
 }

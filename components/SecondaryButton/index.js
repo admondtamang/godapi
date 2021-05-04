@@ -8,6 +8,16 @@ export default function SecondaryButton({ color, background, name, prefix, squar
         color: ${color};
         background-color: ${background};
         border-radius: 5px;
+        display: flex;
+        ${({ button }) =>
+            button &&
+            `
+            text-ailgn:center;
+                cursor: pointer;
+                &:hover {
+                    opacity: 0.8;
+                }
+                `}
     `;
 
     return (
