@@ -3,7 +3,8 @@ import { FolderOutlined, FileOutlined } from "@ant-design/icons";
 import { ContextMenu, MenuItem, ContextMenuTrigger } from "react-contextmenu";
 import "./navigation.module.css";
 import AddFolder from "./AddFolder";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { handleClickRequest } from "../../redux/request/requestSlice";
 
 const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
@@ -13,20 +14,25 @@ function handleClick(e, data) {
 }
 
 export default function Navigation({ children }) {
+    const dispatch = useDispatch();
     const folders = useSelector((state) => state.folders.data);
+    function _handleRequestClick(req) {
+        console.log(req);
+        dispatch(handleClickRequest(req));
+    }
     const navigations = () =>
         Object.entries(folders).map(([key, value], i) => (
             <>
                 {/* <ContextMenuTrigger id="same_unique_identifier"> */}
                 <SubMenu key={i} icon={<FolderOutlined />} title={key}>
                     {/* {console.log(value)} */}
-                    {value?.map((nav, i) => (
-                        <Menu.Item key={i} icon={<FileOutlined />}>
-                            {nav.url}
+                    {value?.map((req, i) => (
+                        <Menu.Item key={i} icon={<FileOutlined />} onClick={() => _handleRequestClick(req)}>
+                            {req.url}
                         </Menu.Item>
                     ))}
-                    <Menu.Item key={i} icon={<FileOutlined />}>
-                        Add New request
+                    <Menu.Item key={78} icon={<FileOutlined />}>
+                        new request
                     </Menu.Item>
                 </SubMenu>
                 {/* </ContextMenuTrigger> */}

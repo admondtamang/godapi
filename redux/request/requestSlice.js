@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { addHistory } from "../history/historySlice";
 import { addRequest } from "../Folder/folderSlice";
+import { toast } from "react-toastify";
 /**
  * Request
  */
@@ -30,8 +31,11 @@ export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", asyn
 
 export const fetchToFolder = createAsyncThunk("user/fetchToFolder", async (selectedOption, { getState, dispatch, rejectWithValue }) => {
     const state = getState();
-    console.log(state, selectedOption);
-    return await dispatch(addRequest({ folder: "ramesh", data: state.request.request }));
+    if (!selectedOption) {
+        toast.error("Invalid");
+        return null;
+    }
+    return await dispatch(addRequest({ folder: selectedOption, data: state.request.request }));
 });
 
 const request = createSlice({
@@ -51,6 +55,9 @@ const request = createSlice({
         status: null,
     },
     reducers: {
+        handleClickRequest(state, { payload }) {
+            return { ...state, request: payload };
+        },
         handleMethod(state, { payload }) {
             return { ...state, request: { ...state.request, method: payload } };
         },
@@ -98,5 +105,13 @@ const request = createSlice({
     },
 });
 
-export const { handleJson, handleMethod, handleAuth, handleToken, handleBasicAuth, handleChangeRequestProps } = request.actions;
+export const {
+    handleJson,
+    handleMethod,
+    handleAuth,
+    handleToken,
+    handleBasicAuth,
+    handleChangeRequestProps,
+    handleClickRequest,
+} = request.actions;
 export default request.reducer;

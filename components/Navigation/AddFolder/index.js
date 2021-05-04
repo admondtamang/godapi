@@ -24,7 +24,9 @@ export default function AddFolder() {
     const TextInput = React.forwardRef((props, ref) => {
         return (
             <FormControl>
-                <FormLabel htmlFor={props.id}>{props.label}</FormLabel>
+                <FormLabel pb={3} htmlFor={props.id}>
+                    {props.label}
+                </FormLabel>
                 <Input ref={ref} id={props.id} {...props} />
             </FormControl>
         );
@@ -37,17 +39,19 @@ export default function AddFolder() {
             onCancel();
         }
         return (
-            <Stack spacing={4}>
-                <TextInput label="Folder Name" id="folder-name" ref={firstFieldRef} defaultValue="" />
-                <ButtonGroup d="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onCancel}>
-                        Cancel
-                    </Button>
-                    <Button colorScheme="teal" onClick={handleSubmit}>
-                        Save
-                    </Button>
-                </ButtonGroup>
-            </Stack>
+            <form>
+                <Stack spacing={4}>
+                    <TextInput label="Folder Name" id="folder-name" ref={firstFieldRef} defaultValue="" />
+                    <ButtonGroup d="flex" justifyContent="flex-end">
+                        <Button variant="outline" onClick={onCancel}>
+                            Cancel
+                        </Button>
+                        <Button type="submit" colorScheme="teal" onClick={handleSubmit}>
+                            Save
+                        </Button>
+                    </ButtonGroup>
+                </Stack>
+            </form>
         );
     };
 

@@ -1,5 +1,5 @@
 import { Button, Input, Select } from "antd";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import TitleContainer from "../../../components/TitleConatiner";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRequestApi, handleChangeRequestProps, handleMethod } from "../../../redux/request/requestSlice";
@@ -18,6 +18,8 @@ export default function Request() {
     const dispatch = useDispatch();
     const { url, method } = useSelector((state) => state.request.request);
 
+    useEffect(() => {}, [dispatch, url]);
+
     const urlRef = useRef();
 
     useHotkeys("/", () => urlRef.current.focus());
@@ -29,7 +31,6 @@ export default function Request() {
     function handleChange(value) {
         dispatch(handleMethod(value));
     }
-    function handleSaveRequest() {}
 
     const onSubmit = () => {
         dispatch(fetchRequestApi())
@@ -53,7 +54,7 @@ export default function Request() {
         <TitleContainer title="Request" icon={<PullRequestOutlined />}>
             <Form onFinish={onSubmit} style={{ display: "flex" }}>
                 <Input ref={urlRef} addonBefore={selectBefore} name="url" defaultValue={url} onChange={onChangeUrl} />
-                <Button onClick={onSubmit} type="submit">
+                <Button htmlType="submit" onClick={onSubmit}>
                     Send
                 </Button>
             </Form>

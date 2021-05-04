@@ -13,6 +13,7 @@ import { FolderAddOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Select } from "antd";
 import { fetchToFolder } from "../../../../redux/request/requestSlice";
+import { FormLabel } from "@chakra-ui/form-control";
 // import { addfolder } from "../../../redux/Folder/folderSlice";
 const { Option } = Select;
 
@@ -31,30 +32,35 @@ export default function AddFolder() {
             onCancel();
         }
         return (
-            <Stack spacing={4}>
-                <Select
-                    showSearch
-                    style={{ width: 200 }}
-                    placeholder="Select a person"
-                    optionFilterProp="children"
-                    value={selectedOption}
-                    onChange={onChange}
-                    filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
-                >
-                    {Object.entries(folders).map(([key, folder], i) => (
-                        <Option value={key}>{key}</Option>
-                    ))}
-                </Select>
+            <form>
+                <Stack spacing={4}>
+                    <FormLabel htmlFor="request name">
+                        <b> Request Name</b>
+                    </FormLabel>
+                    <Select
+                        showSearch
+                        style={{ width: 200 }}
+                        placeholder="Select a person"
+                        optionFilterProp="children"
+                        value={selectedOption}
+                        onChange={onChange}
+                        filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                    >
+                        {Object.entries(folders).map(([key, folder], i) => (
+                            <Option value={key}>{key}</Option>
+                        ))}
+                    </Select>
 
-                <ButtonGroup d="flex" justifyContent="flex-end">
-                    <Button variant="outline" onClick={onCancel}>
-                        Cancel
-                    </Button>
-                    <Button colorScheme="teal" onClick={handleSubmit}>
-                        Save
-                    </Button>
-                </ButtonGroup>
-            </Stack>
+                    <ButtonGroup d="flex" justifyContent="flex-end">
+                        <Button variant="outline" onClick={onCancel}>
+                            Cancel
+                        </Button>
+                        <Button type="submit" colorScheme="teal" onClick={handleSubmit}>
+                            Save
+                        </Button>
+                    </ButtonGroup>
+                </Stack>
+            </form>
         );
     };
 
@@ -65,7 +71,7 @@ export default function AddFolder() {
     const firstFieldRef = React.useRef(null);
 
     return (
-        <Popover isOpen={isOpen} initialFocusRef={firstFieldRef} onOpen={onOpen} onClose={onClose} placement="right" closeOnBlur={false}>
+        <Popover isOpen={isOpen} initialFocusRef={firstFieldRef} onOpen={onOpen} onClose={onClose} placement="top" closeOnBlur={false}>
             <PopoverTrigger>
                 <Button leftIcon={<FolderAddOutlined />} colorScheme="teal" variant="outline">
                     Save Request
