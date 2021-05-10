@@ -20,7 +20,6 @@ const { Option } = Select;
 export default function AddFolder() {
     const dispatch = useDispatch();
     const folders = useSelector((state) => state.folders.data);
-    console.log(folders);
     const [selectedOption, setSelectedOption] = useState("");
     // 2. Create the form
     const Form = ({ firstFieldRef, onCancel }) => {
@@ -47,7 +46,9 @@ export default function AddFolder() {
                         filterOption={(input, option) => option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                     >
                         {Object.entries(folders).map(([key, folder], i) => (
-                            <Option value={key}>{key}</Option>
+                            <Option value={key} key={i}>
+                                {key}
+                            </Option>
                         ))}
                     </Select>
 

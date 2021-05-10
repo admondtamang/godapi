@@ -18,8 +18,6 @@ export default function Request() {
     const dispatch = useDispatch();
     const { url, method } = useSelector((state) => state.request.request);
 
-    useEffect(() => {}, [dispatch, url]);
-
     const urlRef = useRef();
 
     useHotkeys("/", () => urlRef.current.focus());
@@ -37,7 +35,7 @@ export default function Request() {
             .then(unwrapResult)
             .catch((err) => {
                 console.error("hello", err);
-                toast.error(err.data.message);
+                // toast.error(err.data.message);
             });
     };
 
@@ -53,7 +51,7 @@ export default function Request() {
     return (
         <TitleContainer title="Request" icon={<PullRequestOutlined />}>
             <Form onFinish={onSubmit} style={{ display: "flex" }}>
-                <Input ref={urlRef} addonBefore={selectBefore} name="url" defaultValue={url} onChange={onChangeUrl} />
+                <Input ref={urlRef} addonBefore={selectBefore} name="url" value={url} onChange={onChangeUrl} />
                 <Button htmlType="submit" onClick={onSubmit}>
                     Send
                 </Button>

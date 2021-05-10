@@ -8,8 +8,8 @@ export default function History() {
     console.log(histories);
     return (
         <TitleContainer title="History" style={{ marginTop: "1rem" }} icon={<HistoryOutlined />}>
-            {histories.map((item) => (
-                <HistoryItem history={item} />
+            {histories.map((item, i) => (
+                <HistoryItem history={item} key={i} />
             ))}
         </TitleContainer>
     );

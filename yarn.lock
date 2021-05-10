@@ -3308,12 +3308,25 @@ react-focus-lock@2.5.0:
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
 
+react-folder-tree@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.yarnpkg.com/react-folder-tree/-/react-folder-tree-4.1.0.tgz#654444b8cc8c532f5483220d646f64585bd603a3"
+  integrity sha512-grGtdYai78v6RGhzFKGt2vzE9BqCKG4OwDU384U85TBMxNYMVESS80PZ3VCAHQY+nsYutBGlucoXVHsOK5xrAg==
+  dependencies:
+    prop-types "^15.7.2"
+    react-icons "^4.1.0"
+
 react-hotkeys-hook@^3.3.1:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/react-hotkeys-hook/-/react-hotkeys-hook-3.3.1.tgz#8b03b0b2741d59f91b9b7564e8221c92e3230010"
   integrity sha512-y6eCMEysh09lIgRQvIC76L7ehqUWf/7h8VlqT6w7RRnim5CX5CXldo64+CjWanIcgr++q5yTNwr7A/8DXA1u9A==
   dependencies:
     hotkeys-js "3.8.3"
+
+react-icons@^4.1.0:
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.2.0.tgz#6dda80c8a8f338ff96a1851424d63083282630d0"
+  integrity sha512-rmzEDFt+AVXRzD7zDE21gcxyBizD/3NqjbX6cmViAgdqfJ2UiLer8927/QhhrXQV7dEj/1EGuOTPp7JnLYVJKQ==
 
 react-interactive@^0.8.1:
   version "0.8.3"

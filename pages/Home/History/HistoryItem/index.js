@@ -2,7 +2,6 @@ import SecondaryButton from "../../../../components/SecondaryButton";
 import styled from "styled-components";
 
 export default function HistoryItem({ history }) {
-    console.log(history);
     const {
         config: { url, method },
         status,

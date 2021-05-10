@@ -31,7 +31,9 @@ export default function Auth() {
             <Box>
                 <Radio.Group value={auth} onChange={changeAuth} style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
                     {Object.entries(radioAuth).map(([key, value], i) => (
-                        <Radio.Button value={key}>{value}</Radio.Button>
+                        <Radio.Button value={key} key={i}>
+                            {value}
+                        </Radio.Button>
                     ))}
                 </Radio.Group>
             </Box>
