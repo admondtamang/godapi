@@ -1,5 +1,9 @@
 ## God Api
 
+**Alternative to Postman, Insomnia and many more.**
+
+Visit: https://godapi.vercel.app/
+
 First, run the development server:
 
 ```bash
@@ -8,10 +12,8 @@ npm run dev
 yarn dev
 ```
 
-Alternative to Postman, Insomnia and many more.
 
 # Features
-
-Shortcut key "/" to focus into input url.
-History request
-Manage request
+- Shortcut key "/" to focus into input url.
+- History request
+- Manage request
