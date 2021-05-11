@@ -3,6 +3,7 @@ import axios from "axios";
 import { addHistory } from "../history/historySlice";
 import { addRequest } from "../Folder/folderSlice";
 import { toast } from "react-toastify";
+import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 /**
  * Request
  */
@@ -25,7 +26,7 @@ export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", asyn
         dispatch(addHistory(res));
         return res;
     } catch (err) {
-        return rejectWithValue(err.response);
+        return rejectWithValue(err);
     }
 });
 
@@ -105,13 +106,6 @@ const request = createSlice({
     },
 });
 
-export const {
-    handleJson,
-    handleMethod,
-    handleAuth,
-    handleToken,
-    handleBasicAuth,
-    handleChangeRequestProps,
-    handleClickRequest,
-} = request.actions;
+export const { handleJson, handleMethod, handleAuth, handleToken, handleBasicAuth, handleChangeRequestProps, handleClickRequest } =
+    request.actions;
 export default request.reducer;

@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 
 export default function History() {
     const histories = useSelector((state) => state.history.data);
-    console.log(histories);
     return (
         <TitleContainer title="History" style={{ marginTop: "1rem" }} icon={<HistoryOutlined />}>
             {histories.map((item, i) => (

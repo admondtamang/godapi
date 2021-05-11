@@ -34,7 +34,7 @@ export default function Request() {
         dispatch(fetchRequestApi())
             .then(unwrapResult)
             .catch((err) => {
-                console.error("hello", err);
+                console.error("hello", err.data);
                 // toast.error(err.data.message);
             });
     };

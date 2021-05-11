@@ -11,8 +11,7 @@ const history = createSlice({
         addHistory: (state, action) => {
             state.status = "success";
             state.data.push(action.payload);
-            // state.data = [...state.data, action.payload];
-            // state.data = state.data.shift();
+            state.data.length >= 10 && state.data.shift();
         },
         clearHistory: (state, action) => {
             state.status = "success";

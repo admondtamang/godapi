@@ -6,6 +6,7 @@ import AddFolder from "./AddFolder";
 import { useDispatch, useSelector } from "react-redux";
 import { handleClickRequest } from "../../redux/request/requestSlice";
 import dynamic from "next/dynamic";
+import RequestMethodIcon from "../RequestMehodIcon";
 
 const NavigationFolder = dynamic(() => import("./TreeFolder"), {
     loading: () => <p>Loading...</p>,
@@ -34,7 +35,7 @@ export default function Navigation({ children }) {
             <SubMenu key={i} icon={<FolderOutlined />} title={key}>
                 {value.length >= 1 ? (
                     value?.map((req, i) => (
-                        <Menu.Item key={i} icon={<FileOutlined />} onClick={() => _handleRequestClick(req)}>
+                        <Menu.Item key={i} icon={<RequestMethodIcon method={req.method} />} onClick={() => _handleRequestClick(req)}>
                             {req.url}
                         </Menu.Item>
                     ))
@@ -47,12 +48,12 @@ export default function Navigation({ children }) {
     return (
         <Layout className="site-layout-background">
             <Sider className="site-layout-background" style={{ background: "white" }} width={300}>
-                <NavigationFolder folders={data} />
-                {/* <Menu mode="inline" style={{ height: "100%" }}>
+                {/* <NavigationFolder folders={data} /> */}
+                <Menu mode="inline" style={{ height: "100%" }}>
                     <AddFolder />
 
                     {navigations()}
-                </Menu> */}
+                </Menu>
             </Sider>
 
             <Content style={{ padding: " 24px", minHeight: 280 }}>{children}</Content>

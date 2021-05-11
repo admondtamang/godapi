@@ -99,3 +99,13 @@ nav.react-contextmenu {
 .react-contextmenu-item .watchlist {
     color: rebeccapurple;
 }
+
+.menu_item {
+    display: flex;
+    justify-content: space-around;
+}
+
+.TreeNode,
+.TreeNodeToolBar {
+    display: flex;
+}
