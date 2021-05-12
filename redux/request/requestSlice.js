@@ -7,8 +7,12 @@ import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 /**
  * Request
  */
-export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", async (_, { getState, dispatch, rejectWithValue }) => {
+export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", async (_, { signal, getState, dispatch, rejectWithValue }) => {
     const state = getState();
+    const source = axios.CancelToken.source();
+    signal.addEventListener("abort", () => {
+        source.cancel();
+    });
     const {
         request: {
             request: { json, token, basic_token, url, method },
@@ -16,16 +20,27 @@ export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", asyn
     } = state;
 
     try {
-        const res = await axios(
-            {
-                method,
-                url,
+        const res = await axios({
+            method,
+            url,
+            data: json,
+            cancelToken: source.token,
+            validateStatus: function (status) {
+                return status < 500; // Resolve only if the status code is less than 500
             },
-            { json }
-        );
+        });
+
         dispatch(addHistory(res));
         return res;
     } catch (err) {
+        if (axios.isCancel(thrown)) {
+            console.log("Request canceled", thrown.message);
+        }
+        let error = err; // cast the error for access
+        if (!error.response) {
+            throw err;
+        }
+
         return rejectWithValue(err);
     }
 });
@@ -98,10 +113,10 @@ const request = createSlice({
         },
         [fetchRequestApi.rejected]: (state, action) => {
             state.status = "failed";
+            state.data = {};
         },
         [fetchToFolder.fulfilled]: (state, action) => {
             state.status = "success";
-            console.log(action);
         },
     },
 });

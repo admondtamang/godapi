@@ -1,5 +1,5 @@
 import { Button, Input, Select } from "antd";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import TitleContainer from "../../../components/TitleConatiner";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRequestApi, handleChangeRequestProps, handleMethod } from "../../../redux/request/requestSlice";
@@ -30,11 +30,20 @@ export default function Request() {
         dispatch(handleMethod(value));
     }
 
-    const onSubmit = () => {
+    const onSubmit = (e) => {
+        e.preventDefault();
         dispatch(fetchRequestApi())
             .then(unwrapResult)
-            .catch((err) => {
-                console.error("hello", err.data);
+            .catch((error) => {
+                if (!error.response) {
+                    // network error
+                    toast.error("Invalid request");
+                } else {
+                    // http status code
+                    const code = error.response.status;
+                    // response data
+                    const response = error.response.data;
+                }
                 // toast.error(err.data.message);
             });
     };
@@ -50,12 +59,12 @@ export default function Request() {
 
     return (
         <TitleContainer title="Request" icon={<PullRequestOutlined />}>
-            <Form onFinish={onSubmit} style={{ display: "flex" }}>
+            <form style={{ display: "flex" }}>
                 <Input ref={urlRef} addonBefore={selectBefore} name="url" value={url} onChange={onChangeUrl} />
                 <Button htmlType="submit" onClick={onSubmit}>
                     Send
                 </Button>
-            </Form>
+            </form>
             <Tabs />
             <AddFolder />
             {/* <SecondaryButton onClick={handleSaveRequest} name="Save Request" background="lightgreen" color="green" button /> */}
