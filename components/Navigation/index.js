@@ -35,7 +35,7 @@ export default function Navigation({ children }) {
             <SubMenu key={i} icon={<FolderOutlined />} title={key}>
                 {value.length >= 1 ? (
                     value?.map((req, i) => (
-                        <Menu.Item key={i} icon={<RequestMethodIcon method={req.method} />} onClick={() => _handleRequestClick(req)}>
+                        <Menu.Item key={i} icon={<RequestMethodIcon req={req} />} onClick={() => _handleRequestClick(req)}>
                             {req.url}
                         </Menu.Item>
                     ))

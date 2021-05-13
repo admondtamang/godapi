@@ -14,7 +14,7 @@ export default function Response() {
     const request = useSelector((state) => state.request);
     const { status, data } = request;
 
-    if (status == undefined) {
+    if (status == undefined || status == "failed") {
         return (
             <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
                 <LottieFile
@@ -56,5 +56,5 @@ export default function Response() {
 
 const Container = styled.div`
     display: flex;
-    justify-content: space-between;
+    gap: 1em;
 `;

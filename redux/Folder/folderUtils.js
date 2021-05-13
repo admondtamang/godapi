@@ -1,7 +1,6 @@
 // data:{bpa:[{url,method},{url,method}],dms:[]}
 
 export function arrayData(state, { folder, data }) {
-    state.data[folder].push(data);
-    console.log(folder, data, state.data[folder]);
+    state.data[folder].push({ ...data, id: Object.keys(state.data[action.payload.folder]).length });
     return state.data[folder];
 }

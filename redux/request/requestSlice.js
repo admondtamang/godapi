@@ -74,6 +74,7 @@ const request = createSlice({
         handleClickRequest(state, { payload }) {
             return { ...state, request: payload };
         },
+
         handleMethod(state, { payload }) {
             return { ...state, request: { ...state.request, method: payload } };
         },

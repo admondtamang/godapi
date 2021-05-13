@@ -15,16 +15,21 @@ const folder = createSlice({
         },
         addRequest: (state, action) => {
             state.status = "success";
-            console.log(action.payload);
             // push data in array
-            state.data = { ...state.data, [action.payload.folder]: arrayData(state, action.payload) };
+            state.data = {
+                ...state.data,
+                [action.payload.folder]: arrayData(state, action.paylod),
+            };
         },
         removefolder: (state, action) => {
             state.status = "success";
             state.data = [];
         },
+        removeRequest(state, { payload }) {
+            return { ...state, request: payload };
+        },
     },
 });
 
-export const { addfolder, removefolder, addRequest } = folder.actions;
+export const { addfolder, removefolder, addRequest, removeRequest } = folder.actions;
 export default folder.reducer;
