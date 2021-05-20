@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleClickRequest } from "../../redux/request/requestSlice";
 import dynamic from "next/dynamic";
 import RequestMethodIcon from "../RequestMehodIcon";
-import { SpaceContext } from "antd/lib/space";
-
+import LottieFile from "../LottieFile";
+import animateData from "../../assets/lottie/no-data.json";
 const NavigationFolder = dynamic(() => import("./TreeFolder"), {
     loading: () => <p>Loading...</p>,
 });
@@ -41,7 +41,7 @@ export default function Navigation({ children }) {
                         </Menu.Item>
                     ))
                 ) : (
-                    <span>No data</span>
+                    <LottieFile animationData={animateData} height="250px" />
                 )}
             </SubMenu>
         ));
@@ -52,7 +52,6 @@ export default function Navigation({ children }) {
                 {/* <NavigationFolder folders={data} /> */}
                 <Menu mode="inline" style={{ height: "100%" }}>
                     <AddFolder />
-
                     {navigations()}
                 </Menu>
             </Sider>

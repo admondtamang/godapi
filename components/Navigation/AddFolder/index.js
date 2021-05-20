@@ -64,7 +64,9 @@ export default function AddFolder() {
     return (
         <Popover isOpen={isOpen} initialFocusRef={firstFieldRef} onOpen={onOpen} onClose={onClose} placement="right" closeOnBlur={false}>
             <PopoverTrigger>
-                <IconButton size="sm" icon={<FolderAddOutlined />} />
+                <Button leftIcon={<FolderAddOutlined />} variant="solid" style={{ margin: 10 }}>
+                    Add Folder
+                </Button>
             </PopoverTrigger>
             <PopoverContent p={5}>
                 <FocusLock returnFocus persistentFocus={false}>
