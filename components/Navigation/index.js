@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleClickRequest } from "../../redux/request/requestSlice";
 import dynamic from "next/dynamic";
 import RequestMethodIcon from "../RequestMehodIcon";
+import { SpaceContext } from "antd/lib/space";
 
 const NavigationFolder = dynamic(() => import("./TreeFolder"), {
     loading: () => <p>Loading...</p>,
@@ -35,12 +36,12 @@ export default function Navigation({ children }) {
             <SubMenu key={i} icon={<FolderOutlined />} title={key}>
                 {value.length >= 1 ? (
                     value?.map((req, i) => (
-                        <Menu.Item key={i} icon={<RequestMethodIcon req={req} />} onClick={() => _handleRequestClick(req)}>
+                        <Menu.Item key={i} icon={<RequestMethodIcon req={req} folder={key} />} onClick={() => _handleRequestClick(req)}>
                             {req.url}
                         </Menu.Item>
                     ))
                 ) : (
-                    <p>No data</p>
+                    <span>No data</span>
                 )}
             </SubMenu>
         ));

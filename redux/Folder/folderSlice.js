@@ -1,5 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { arrayData } from "./folderUtils";
+import { createSlice } from "@reduxjs/toolkit";
 // data:{bpa:[{url,method},{url,method}],dms:[]}
 const folder = createSlice({
     name: "folder",
@@ -15,18 +14,26 @@ const folder = createSlice({
         },
         addRequest: (state, action) => {
             state.status = "success";
+            const { folder, data } = action.payload;
+
             // push data in array
             state.data = {
                 ...state.data,
-                [action.payload.folder]: arrayData(state, action.paylod),
+                [folder]: [...state.data[folder], { ...data, id: state.data[folder].length }],
             };
         },
         removefolder: (state, action) => {
             state.status = "success";
             state.data = [];
         },
-        removeRequest(state, { payload }) {
-            return { ...state, request: payload };
+        removeRequest(state, action) {
+            const { folder, id } = action.payload;
+
+            state.status = "success";
+            state.data = {
+                ...state.data,
+                [folder]: state.data[folder].filter((data) => id !== data.id),
+            };
         },
     },
 });
