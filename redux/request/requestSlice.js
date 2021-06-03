@@ -7,51 +7,60 @@ import { loadGetInitialProps } from "next/dist/next-server/lib/utils";
 /**
  * Request
  */
-export const fetchRequestApi = createAsyncThunk("user/fetchRequestApiData", async (_, { signal, getState, dispatch, rejectWithValue }) => {
-    const state = getState();
-    const source = axios.CancelToken.source();
-    signal.addEventListener("abort", () => {
-        source.cancel();
-    });
-    const {
-        request: {
-            request: { json, token, basic_token, url, method },
-        },
-    } = state;
-
-    try {
-        const res = await axios({
-            method,
-            url,
-            data: json,
-            cancelToken: source.token,
-            validateStatus: function (status) {
-                return status < 500; // Resolve only if the status code is less than 500
-            },
+export const fetchRequestApi = createAsyncThunk(
+    "request/fetchRequestApiData",
+    async (_, { signal, getState, dispatch, rejectWithValue }) => {
+        const state = getState();
+        const source = axios.CancelToken.source();
+        signal.addEventListener("abort", () => {
+            source.cancel();
         });
+        const {
+            request: {
+                request: { json, token, basic_token, url, method },
+            },
+        } = state;
 
-        dispatch(addHistory(res));
-        return res;
-    } catch (err) {
-        if (axios.isCancel(thrown)) {
-            console.log("Request canceled", thrown.message);
-        }
-        let error = err; // cast the error for access
-        if (!error.response) {
-            throw err;
-        }
+        try {
+            const res = await axios({
+                method,
+                url,
+                data: json,
+                cancelToken: source.token,
+                validateStatus: function (status) {
+                    return status < 500; // Resolve only if the status code is less than 500
+                },
+            });
 
-        return rejectWithValue(err);
+            dispatch(addHistory(res));
+            return res;
+        } catch (err) {
+            if (axios.isCancel(thrown)) {
+                console.log("Request canceled", thrown.message);
+            }
+            let error = err; // cast the error for access
+            if (!error.response) {
+                throw err;
+            }
+
+            return rejectWithValue(err);
+        }
     }
-});
+);
 
-export const fetchToFolder = createAsyncThunk("user/fetchToFolder", async (selectedOption, { getState, dispatch, rejectWithValue }) => {
+export const fetchToFolder = createAsyncThunk("request/fetchToFolder", (selectedOption, { getState, dispatch, rejectWithValue }) => {
     const state = getState();
     if (!selectedOption) {
         toast.error("Invalid");
         return null;
     }
-    return await dispatch(addRequest({ folder: selectedOption, data: state.request.request }));
+    try {
+        const obj = { folder: selectedOption, data: state.request.request };
+        console.log(obj);
+        return dispatch(addRequest(obj));
+    } catch (error) {
+        alert(error);
+    }
 });
 
 const request = createSlice({

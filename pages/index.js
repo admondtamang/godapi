@@ -2,7 +2,21 @@ import { ToastContainer } from "react-toastify";
 import Home from "./Home";
 import Navigation from "../components/Navigation";
 import Head from "next/head";
+import { useSession } from "next-auth/client";
+import { Login } from "../components/Login";
+import { Button } from "antd";
+import { signOut } from "next-auth/client";
+import Loading from "../components/Loading";
+
 export default function index() {
+    const [session, loading] = useSession();
+
+    // if (!session) {
+    //     return <Login />;
+    // }
+    // if (loading) {
+    //     return <Loading />;
+    // }
     return (
         <>
             <Head>
