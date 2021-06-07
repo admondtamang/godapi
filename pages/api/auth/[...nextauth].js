@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 
-import { FirebaseAdapter } from "@next-auth/firebase-adapter";
+// import { FirebaseAdapter } from "@next-auth/firebase-adapter";
 import firebase from "firebase-admin";
 const firestore = firebase
     .initializeApp({
@@ -23,8 +23,7 @@ export default NextAuth({
 
         // ...add more providers here
     ],
-
-    adapter: FirebaseAdapter(firestore),
+    // adapter: FirebaseAdapter(firestore),
     // A database is optional, but required to persist accounts in a database
     // database: process.env.DATABASE_URL,
 });
