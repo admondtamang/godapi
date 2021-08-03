@@ -28,7 +28,7 @@ export default function Response() {
         );
     }
     const LoadingComponent = <Loading message="Loading..." />;
-
+const code=data.status;
     return (
         <TitleContainer title="Response" icon={<CloudDownloadOutlined />}>
             {status === "loading" ? (
@@ -36,7 +36,7 @@ export default function Response() {
             ) : (
                 <>
                     <Container>
-                        <SecondaryButton prefix="Status" name={data.status + " " + data.statusText} color="green" background="lightgreen" />
+                        <SecondaryButton prefix="Status" name={code + " " + data.statusText} color={code ===404 ||401 ? "red": "green" } background={code ===404 || 401 ? "rose":"lightgreen"} />
                         <SecondaryButton prefix="Time" name="2.5 s" color="gray" background="lightgray" />
                         {/* <SecondaryButton
                             prefix="Size"

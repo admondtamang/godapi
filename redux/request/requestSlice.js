@@ -17,7 +17,12 @@ export const fetchRequestApi = createAsyncThunk(
         });
         const {
             request: {
-                request: { json, token, basic_token, url, method },
+                request: {
+                    json,
+                    auth: { token, selected, basic_token },
+                    url,
+                    method,
+                },
             },
         } = state;
 
@@ -26,6 +31,8 @@ export const fetchRequestApi = createAsyncThunk(
                 method,
                 url,
                 data: json,
+                headers: selected === "token" && { Authorization: token },
+                auth: selected === "basic" && basic_token,
                 cancelToken: source.token,
                 validateStatus: function (status) {
                     return status < 500; // Resolve only if the status code is less than 500
@@ -40,6 +47,7 @@ export const fetchRequestApi = createAsyncThunk(
             }
             let error = err; // cast the error for access
             if (!error.response) {
+                console.log(error);
                 throw err;
             }
 
@@ -51,7 +59,7 @@ export const fetchRequestApi = createAsyncThunk(
 export const fetchToFolder = createAsyncThunk("request/fetchToFolder", (selectedOption, { getState, dispatch, rejectWithValue }) => {
     const state = getState();
     if (!selectedOption) {
-        toast.error("Invalid");
+        toast.error("Invalid Selection");
         return null;
     }
     try {

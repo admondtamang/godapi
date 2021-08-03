@@ -6,7 +6,7 @@ export default function SecondaryButton({ color, background, name, prefix, squar
         padding: 0.5rem 1rem;
         font-weight: bold;
         color: ${color};
-        background-color: ${background};
+        background: ${background};
         border-radius: 5px;
         display: flex;
         ${({ button }) =>
